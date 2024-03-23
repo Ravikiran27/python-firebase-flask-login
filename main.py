@@ -18,11 +18,13 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 app = Flask(__name__)       #Initialze flask constructor
 
 #Add your own details
-config = {
-  "apiKey": "PASTE_HERE",
-  "authDomain": "PASTE_HERE",
-  "databaseURL": "PASTE_HERE",
-  "storageBucket": "PASTE_HERE"
+config = {"apiKey": "AIzaSyCCuFXko9GqN9mKJEsar01CabTFCpXgP1g",
+  "authDomain": "prjectrk.firebaseapp.com",
+  "projectId": "prjectrk",
+  "storageBucket": "prjectrk.appspot.com",
+  "messagingSenderId": "215677606830",
+  "appId": "1:215677606830:web:e911c489cf6c62a3adc63f",
+  "measurementId": "G-2QFXGL2VJM"
 }
 
 #initialize firebase
