@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write With AI - Generate Emails</title>
+  
+  <style>
+    /* Basic styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  margin-bottom: 15px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #007bff99; /* Slight transparency on hover */
+}
+
+/* Specific styling for each page */
+.index-page {
+  background-color: #f5f5f5;
+}
+
+.generate-page {
+  background-color: #eee;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>Write With AI - Generate Emails</h1>
+
+  <p>Welcome back! Let's craft an email for you.</p>
+
+  <form action="/generate" method="post">
+    <label for="topic">Email Topic:</label>
+    <input type="text" id="topic" name="topic" placeholder="Enter your email subject" required>
+    <br>
+    <button type="submit">Generate Email</button>
+  </form>
+
+</body>
+</html>
