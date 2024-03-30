@@ -1,6 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Writing Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="email"],
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<h2>Write Your Email</h2>
+
+<form action="/generate" method="post">
+  <label for="senderName">Your Name:</label><br>
+  <input type="text" id="senderName" name="senderName" required><br>
+  
+  <label for="senderEmail">Your Email Address:</label><br>
+  <input type="email" id="senderEmail" name="senderEmail" required><br>
+  
+  <label for="recipientEmail">Recipient's Email Address:</label><br>
+  <input type="email" id="recipientEmail" name="recipientEmail" required><br>
+  
+  <label for="emailSubject">Subject:</label><br>
+  <input type="text" id="emailSubject" name="emailSubject" required><br>
+  
+  <label for="emailContent">Description:</label><br>
+  <textarea id="emailContent" name="emailContent" rows="6" cols="50" required></textarea><br>
+  
+  <input type="submit" value="Send Email">
+</form>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Writing Service Form</title>
+<style>
+    /* Basic CSS styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Email Writing Service Form</h2>
+    <form id="emailForm" action="/generate" method="POST">
+        <label for="recipientName">Recipient's Name:</label>
+        <input type="text" id="recipientName" name="recipientName" required>
+
+        <label for="recipientEmail">Recipient's Email:</label>
+        <input type="email" id="recipientEmail" name="recipientEmail" required>
+
+        <label for="emailPurpose">Purpose of the Email:</label>
+        <textarea id="emailPurpose" name="emailPurpose" rows="4" required></textarea>
+
+        <label for="emailContent">Email Content:</label>
+        <textarea id="emailContent" name="emailContent" rows="6" required></textarea>
+
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="deadline" name="deadline">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Write With AI - Generate Emails</title>
@@ -75,4 +293,4 @@ button[type="submit"]:hover {
   </form>
 
 </body>
-</html>
+</html> -->

@@ -1,15 +1,57 @@
 import pyrebase
-import google.generativeai as genai
-from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
-import pathlib
-import textwrap
 import json
-def to_markdown(text):
-  text = text.replace('•', '  *')
-  return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
+import google.generativeai as genai
+
+from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
+
 app = Flask(__name__)       #Initialze flask constructor
-genai.configure(api_key="AIzaSyDZjOAMDI8lMGqakB53gMEiU9pmch1-yUk")
-model = genai.GenerativeModel('gemini-pro')
+"""
+At the command line, only need to run once to install the package via pip:
+
+$ pip install google-generativeai
+"""
+
+
+genai.configure(api_key="AIzaSyDTNduHPt5ypwwClXUyU-ygvuTle1Tmjwk")
+
+# Set up the model
+generation_config = {
+  "temperature": 0.9,
+  "top_p": 1,
+  "top_k": 1,
+  "max_output_tokens": 2048,
+}
+
+safety_settings = [
+  {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+]
+
+model = genai.GenerativeModel(model_name="gemini-1.0-pro",
+                              generation_config=generation_config,
+                              safety_settings=safety_settings)
+
+convo = model.start_chat(history=[
+])
+
+convo.send_message("YOUR_USER_INPUT")
+print(convo.last.text)
+# genai.configure(api_key="AIzaSyBpMgC7mTLkBrpKj1wwvFOAFfKdUyGECAk")
+# model = genai.GenerativeModel('gemini-pro')
 #Add your own details
 Config = {
   'apiKey': "AIzaSyCOuXlwI_HTo9vHLFXJ3FHbzYhKssd78oE",
@@ -71,13 +113,11 @@ def result():
         else:
             return redirect(url_for('login'))
 #If someone clicks on register, they are redirected to /register
-@app.route("/create", methods = ["POST", "GET"])
+@app.route("/register", methods = ["POST", "GET"])
 def register():
-    if request.method == "POST":        #Only listen to POST
-        result = request.form           #Get the data submitted
-        email = result["email"]
-        password = result["pass"]
-        name = result["name"]
+    if request.method == "POST":        #Only if data has been posted
+        email = request.form['email']
+        password = request.form['pass']
         try:
             #Try creating the user account using the provided data
             auth.create_user_with_email_and_password(email, password)
@@ -96,56 +136,45 @@ def register():
             return redirect(url_for('welcome'))
         except:
             #If there is any error, redirect to register
-            return redirect(url_for('register'))
+            return redirect(url_for('signup'))
 
     else:
         if person["is_logged_in"] == True:
             return redirect(url_for('welcome'))
         else:
-            return redirect(url_for('register'))
+            return redirect(url_for('signup'))
+
 @app.route("/generate", methods = ["POST", "GET"])
-# def get_response():
-#     # ... (Your code to send a request to the Gemini API)
-#     if request.method == "POST":        #Only if data has been posted
-#         topic = request.form['topic']
-#         response_data = model.generate_content(topic)
-        
-#     # Identify the key holding the generated text
-#     # if 'generated_text' in response_data:
-#     #     extracted_text = response_data['generated_text']
-#     # elif 'response' in response_data:
-#     #     extracted_text = response_data['response']
-#     if 'content' in response_data:  # Add other potential key checks
-#         extracted_text1 = response_data['content']
-#     else:
-#         extracted_text2= response_data
-#     return render_template('result.html',output=extracted_text1)
-   
-
 def generate():
-    if request.method == "POST":        #Only if data has been posted
-        topic = request.form['topic']
-        response1 = model.generate_content(topic)
-        response=extract_resignation_letter(response1)
-        return render_template('result.html',output=response1)
+    if request.method == "POST":  # Only if data has been posted
+        sender_name = request.form['senderName']
+        sender_email = request.form['senderEmail']
+        recipient_email = request.form['recipientEmail']
+        email_subject = request.form['emailSubject']
+        email_content = request.form['emailContent']
+        payload = f"senderName={sender_name}&senderEmail={sender_email}&recipientEmail={recipient_email}&emailSubject={email_subject}&emailContent={email_content}"
+
+        # topic = request.form['topic']
+        convo.send_message(payload)
+        result=convo.last.text
+        output = {
+        "senderName": sender_name,
+        "senderEmail":sender_email,
+        "recipientEmail": recipient_email,
+        "date": "March 30, 2024",
+        "emailSubject": email_subject,
+        "emailContent": result
+    }
+        return render_template('result.html', output=output)
+    
 
 
-def extract_resignation_letter(response_data):
-  # Check if response data has the expected structure
-  if not response_data or not isinstance(response_data, dict):
-    return None
-
-  # Access the candidates list and content details
-  try:
-    candidates = response_data['result']['candidates']
-    content = candidates[0]['content']['parts'][0]['text']
-  except (KeyError, IndexError):
-    return None
-
-  return content
-
-# Example usage (assuming you have the response data in a variable)
+@app.route('/admin')
 
 
+def index():
+    # Replace 'https://example.com' with the desired URL
+    return redirect('https://console.firebase.google.com/u/0/project/authenticate-4f223/authentication/users')
 if __name__ == "__main__":
     app.run(debug=True)
+# write a leave application for college HOD Rajkumar write a email to college for asking leave due to feaver for 3 days
