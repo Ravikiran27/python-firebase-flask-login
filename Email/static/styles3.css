@@ -1,0 +1,148 @@
+/* styles.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent scrolling during loading */
+    font-family: Arial, sans-serif;
+    background-color: #f7a0f2;
+    padding: 20px;
+}
+#loading {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background:transparent;
+}
+
+.spinner {position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: linear-gradient(#f07e6e, #84cdfa, #5ad1cd);
+    animation: animate 1.2s linear infinite;
+}
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(#f272c9, #3deafd, #8ef3cc);
+}
+
+.spinner span:nth-child(1) {
+    filter: blur(5px);
+}
+
+.spinner span:nth-child(2) {
+    filter: blur(10px);
+}
+
+.spinner span:nth-child(3) {
+    filter: blur(25px);
+}
+
+.spinner span:nth-child(4) {
+    filter: blur(50px);
+}
+
+.spinner:after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: #f596db;
+    border: solid rgb(254, 20, 160) 10px;
+    border-radius: 50%;
+}
+
+
+.email-container {
+    max-width: 90%;
+    margin: 0 auto;
+    background: linear-gradient(45deg, #ff6be6, #48b3ff);
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 1px solid transparent;
+    transform: perspective(800px) rotateX(1deg);
+}
+
+
+.email-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.email-section {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.email-section label {
+    font-weight: bold;
+    color: #333;
+}
+
+.email-section p {
+    margin: 0;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.sender-details {
+    margin-top: 20px;
+    border-top: 1px solid #fff;
+    padding-top: 20px;
+}
+
+.sender-name {
+    font-weight: bold;
+}
+
+.sender-email {
+    color: #fff;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.home-button {
+    background-color: #48b3ff;
+    color: #fff;
+}
+
+.refresh-button {
+    background-color: #ff6b6b;
+    color: #fff;
+}

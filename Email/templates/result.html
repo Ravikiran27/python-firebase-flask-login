@@ -1,449 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Output</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        background-color: #f7a0f2;
-    }
-    .email-container {
-        max-width: auto;
-        max-height: auto;
-        margin: 0 auto;
-        background: linear-gradient(45deg, #ff6b6b, #48b3ff);
-        border-radius: 10px;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border: 1px solid transparent;
-        transform: perspective(800px) rotateX(1deg);
-    }
-    .email-header {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #fff;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    }
-    .email-section {
-        margin-bottom: 20px;
-        color: #333;
-    }
-    .email-section label {
-        font-weight: bold;
-        color: #333;
-    }
-    .email-section p {
-        margin: 0;
-        color: #fff;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    }
-    .sender-details {
-        margin-top: 20px;
-        border-top: 1px solid #fff;
-        padding-top: 20px;
-    }
-    .sender-name {
-        font-weight: bold;
-    }
-    .sender-email {
-        color: #fff;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Output</title>
+    <link rel="stylesheet" href="../static/styles3.css">
 </head>
 <body>
-
-<div class="email-container">
-    <div class="email-header">AI WRITTEN EMAIL</div>
-    <div class="email-section">
-      <label>From:</label>
-      <p>{{ output.senderName }} </p>
-      <p>{{ output.senderEmail }}</p>
-  </div>
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+    <div class="email-container">
+        <div class="email-header">AI WRITTEN EMAIL</div>
+        <div class="email-section">
+            <label>From:</label>
+            <p>{{ output.senderName }}</p>
+            <p>{{ output.senderEmail }}</p>
+        </div>
+        
+        <div class="email-section">
+            <label>Recipient:</label>
+            <p>{{ output.recipientname }}</p>
+            <p>{{ output.recipientEmail }}</p>
+        </div>
+        
+        <div class="email-section">
+            <label>Date:</label>
+            <p>{{ output.date }}</p>
+        </div>
+        
+        <div class="email-section">
+            <label>Content:</label>
+            <p>{{ output.emailContent }}</p>
+        </div>
     
-    <div class="email-section">
-        <label>Recipient:</label>
-        <p>{{ output.recipientEmail }}</p>
-    </div>
+        <div class="sender-details">
+            <p>Warm Regards,</p>
+            <p class="sender-name">{{ output.senderName }}</p>
+            <p class="sender-email">{{ output.senderEmail }}</p>
+        </div>
     
-    <div class="email-section">
-        <label>Date:</label>
-        <p>{{ output.date }}</p>
-    </div>
-    
-    <div class="email-section">
-        <label>Content:</label>
-        <p>{{ output.emailContent }}</p>
+        <div class="buttons">
+            <button class="button home-button" onclick="goHome()">Home</button>
+            <button class="button refresh-button" onclick="refreshPage()">Refresh</button>
+        </div>
     </div>
 
-    <div class="sender-details">
-        <p>Warm Regards,</p>
-        <p class="sender-name">{{ output.senderName }}</p>
-        <p class="sender-email">{{ output.senderEmail }}</p>
-    </div>
-</div>
+    <script>
 
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+            document.querySelector('body').style.overflow = 'auto'; // Restore scrolling
+        });
+        
+        function goHome() {
+            window.location.href = "/home";
+        }
+        
+        function refreshPage() {
+            document.getElementById('loading').style.display = 'flex'; // Show loading spinner
+            window.location.reload();
+        }
+        </script>
 </body>
 </html>
 
 
 
 
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Output</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
-    .email-container {
-        max-width: 600px;
-        margin: 0 auto;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-    .email-header {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    .email-section {
-        margin-bottom: 20px;
-    }
-    .email-section label {
-        font-weight: bold;
-    }
-    .email-section p {
-        margin: 0;
-    }
-</style>
-</head>
-<body>
-
-<div class="email-container">
-    <div class="email-header">{{ output.emailSubject }}</div>
-    <div class="email-section">
-      <label>From:</label>
-      <p>{{ output.senderName }} </p>
-      <p>{{ output.senderEmail }}</p>
-  </div>
-    <div class="email-section">
-        <label>Recipient:</label>
-        <p>{{ output.recipientEmail }}</p>
-    </div>
-    
-    <div class="email-section">
-        <label>Date:</label>
-        <p>{{ output.date }}</p>
-    </div>
-    
-    <div class="email-section">
-        <label>Dear Sir/madam</label>
-        <p>{{ output.emailContent }}</p>
-    </div>
-
-    <div class="email-section">
-        <p>Warm Regards,</p>
-        <p>{{ output.senderName }}</p>
-    </div>
-
-    
-</div>
-
-</body>
-</html>
-
-
-
-
-
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Output</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
-    .email-container {
-        max-width: 600px;
-        margin: 0 auto;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-    .email-header {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    .email-section {
-        margin-bottom: 20px;
-    }
-    .email-section label {
-        font-weight: bold;
-    }
-    .email-section p {
-        margin: 0;
-    }
-</style>
-</head>
-<body>
-
-<div class="email-container">
-    <div class="email-header">{{ output.emailSubject }}</div>
-    
-    <div class="email-section">
-        <label>From:</label>
-        <p>{{ output.senderName }} &lt;{{ output.senderEmail }}&gt;</p>
-    </div>
-    
-    <div class="email-section">
-        <label>To:</label>
-        <p>{{ output.recipientEmail }}</p>
-    </div>
-    
-    <div class="email-section">
-        <label>Date:</label>
-        <p>{{ output.date }}</p>
-    </div>
-    
-    <div class="email-section">
-        <label>Subject:</label>
-        <p>{{ output.emailSubject }}</p>
-    </div>
-    
-    <div class="email-section">
-        <label>Content:</label>
-        <p>{{ output.emailContent }}</p>
-    </div>
-</div>
-
-</body>
-</html>
-
-
-
-
-
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        background-color: #f4f4f4;
-        padding: 20px;
-    }
-    .email-container {
-        max-width: 600px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .email-container h2 {
-        margin-top: 0;
-    }
-    .email-container p {
-        margin-bottom: 15px;
-    }
-    .email-container strong {
-        font-weight: bold;
-    }
-</style>
-</head>
-<body>
-
-<div class="email-container">
-    <h2>Leave of Absence Request</h2>
-    <p><strong>Dear Dr. Rajkumar,</strong></p>
-    
-    <p>{{ output }}</p> Dynamically generated email content -->
-    
-    <!-- <p><strong>Warm regards,</strong></p>
-    <p><strong>Ravikiran</strong></p>
-</div>
-
-</body>
-</html> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Write With AI - Email Draft</title>
-  <style>
-    /* Basic styles */
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-p {
-  line-height: 1.5;
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box; /* Ensures padding doesn't affect width */
-  margin-bottom: 15px;
-}
-
-button[type="submit"] {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #007bff99; /* Slight transparency on hover */
-}
-
-/* Specific styling for each page */
-.index-page {
-  background-color: #f5f5f5;
-}
-
-.generate-page {
-  background-color: #eee;
-}
-
-  </style>
-</head>
-<body>
-
-  <h1>Write With AI - Your Email Draft</h1>
-
-  <p>{{output}}</p>
-  <p>Here are some additional options:</p>
-  <ul>
-    <li>Edit and refine the generated draft.</li>
-    <li>Download the email as a text file.</li>
-    <li>Copy the email to your clipboard.</li>
-  </ul>
-
-</body>
-</html> -->

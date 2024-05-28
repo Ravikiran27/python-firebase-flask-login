@@ -86,10 +86,10 @@ def signup():
     return render_template("signup.html")
 
 #Welcome page
-@app.route("/welcome")
+@app.route("/Home")
 def welcome():
     if person["is_logged_in"] == True:
-        return render_template("welcome.html", email = person["email"], name = person["name"])
+        return render_template("Home.html", email = person["email"], name = person["name"])
     else:
         return redirect(url_for('login'))
 
@@ -103,13 +103,13 @@ def result():
             #Try signing in the user with the given information
             user = auth.sign_in_with_email_and_password(email, password)
             iser_info=auth.sign_in_with_email_and_password(email,password)
-            return render_template('welcome.html')
+            return render_template('Home.html')
         except:
             #If there is any error, redirect back to login
             return redirect(url_for('login'))
     else:
         if person["is_logged_in"] == True:
-            return redirect(url_for('welcome'))
+            return redirect(url_for('Home'))
         else:
             return redirect(url_for('login'))
 #If someone clicks on register, they are redirected to /register
@@ -133,46 +133,118 @@ def register():
             data = {"name": name, "email": email}
             db.child("users").child(person["uid"]).set(data)
             #Go to welcome page
-            return redirect(url_for('welcome'))
+            return redirect(url_for('login'))
         except:
             #If there is any error, redirect to register
             return redirect(url_for('signup'))
 
     else:
         if person["is_logged_in"] == True:
-            return redirect(url_for('welcome'))
+            return redirect(url_for('Home'))
         else:
             return redirect(url_for('signup'))
 
-@app.route("/generate", methods = ["POST", "GET"])
+@app.route("/rkb", methods = ["POST", "GET"])
 def generate():
     if request.method == "POST":  # Only if data has been posted
-        sender_name = request.form['senderName']
-        sender_email = request.form['senderEmail']
-        recipient_email = request.form['recipientEmail']
-        email_subject = request.form['emailSubject']
-        email_content = request.form['emailContent']
-        payload = f"senderName={sender_name}&senderEmail={sender_email}&recipientEmail={recipient_email}&emailSubject={email_subject}&emailContent={email_content}"
+        your_name = request.form['your_name']
+        receiver_name = request.form['name']
+        purpose = request.form['purpose']
+        email=request.form['email1']
+        email1=request.form['email2']
+        payload=f"write only body content in paragraph for this email,from  this details,senderName={your_name}&recipientname={receiver_name}&emailpurpose={purpose}"
+
+        # sender_name = request.form['senderName']
+        # sender_email = request.form['senderEmail']
+        # recipient_email = request.form['recipientEmail']
+        # email_subject = request.form['emailSubject']
+        # email_content = request.form['emailContent']
+        # payload = f"senderName={sender_name}&senderEmail={sender_email}&recipientEmail={recipient_email}&emailSubject={email_subject}&emailContent={email_content}"
 
         # topic = request.form['topic']
         convo.send_message(payload)
         result=convo.last.text
         output = {
-        "senderName": sender_name,
-        "senderEmail":sender_email,
-        "recipientEmail": recipient_email,
-        "date": "March 30, 2024",
-        "emailSubject": email_subject,
+        "senderName": your_name,
+        "senderEmail":email1,
+        "recipientname":receiver_name,
+        "recipientEmail":email,
+        "date": "April 04 2024",
+        "emailSubject":purpose,
+        "emailContent": result
+    }
+        return render_template('result.html', output=output)
+    
+
+@app.route("/BRK", methods = ["POST", "GET"])
+def generatereply():
+    if request.method == "POST":  # Only if data has been posted
+        your_name = request.form['your_name']
+        receiver_name = request.form['name']
+        purpose = request.form['purpose']
+        email=request.form['email1']
+        email1=request.form['email2']
+        payload=f" this is a reply email write only content for email for this details,senderName={your_name}&recipientname={receiver_name}&email={purpose}"
+
+        # sender_name = request.form['senderName']
+        # sender_email = request.form['senderEmail']
+        # recipient_email = request.form['recipientEmail']
+        # email_subject = request.form['emailSubject']
+        # email_content = request.form['emailContent']
+        # payload = f"senderName={sender_name}&senderEmail={sender_email}&recipientEmail={recipient_email}&emailSubject={email_subject}&emailContent={email_content}"
+
+        # topic = request.form['topic']
+        convo.send_message(payload)
+        result=convo.last.text
+        output = {
+        "senderName": your_name,
+        "senderEmail":email,
+        "recipientname":receiver_name,
+        "recipientEmail":email1,
+        "date": "April 04 2024",
+        "emailSubject":purpose,
         "emailContent": result
     }
         return render_template('result.html', output=output)
     
 
 
+# @app.route('/rkb', methods=['POST'])
+# def process_form():
+#     your_name = request.form['your_name']
+#     receiver_name = request.form['name']
+#     purpose = request.form['purpose']
+
+
+@app.route('/home')
+
+
+def home():
+   return render_template('Home.html')
+
+
+@app.route('/forgot')
+
+
+def forget():
+   return render_template('forgotemail.html')
+
+
+@app.route('/forget',methods = ["POST", "GET"])
+def reset():
+    if request.method == "POST":        #Only if data has been posted
+        email = request.form['email']
+        auth.send_password_reset_email(email)
+       
+        return render_template('reset email.html')
+    return render_template('reset email.html')
+
+
+
 @app.route('/admin')
 
 
-def index():
+def admin():
     # Replace 'https://example.com' with the desired URL
     return redirect('https://console.firebase.google.com/u/0/project/authenticate-4f223/authentication/users')
 if __name__ == "__main__":
